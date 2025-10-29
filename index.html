@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zapier for Execs | Admin Tax Calculator</title>
+    <!-- 1. Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. Load Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- 3. Load Phosphor Icons (for feature icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* 4. Set Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* 5. Custom Zapier Orange for inputs */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb; /* gray-200 */
+            border-radius: 9999px;
+            outline: none;
+            opacity: 0.9;
+            transition: opacity .2s;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #ff4a00; /* Zapier Orange */
+            border-radius: 50%;
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #ff4a00; /* Zapier Orange */
+            border-radius: 50%;
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        /* 6. Custom styling for the feature grid */
+        .feature-card {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 12px;
+            padding: 24px;
+        }
+    </style>
+</head>
+<body class="bg-white antialiased text-gray-800">
+
+    <!-- Header (Realistic Zapier Nav) -->
+    <header class="py-4 px-6 border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" title="Zapier Home">
+                <svg class="h-8 w-auto" xmlns="http://www.w3.org/2000/svg" fill="#FF4A00" viewBox="0 0 100 40"><path d="M100 17.4H59.7V0H40.3v17.4H0v5.2h40.3v17.4h19.4V22.6H100z"></path></svg>
+            </a>
+            <!-- Fake Nav Links -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Products</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Pricing</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Support</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Blog</a>
+            </nav>
+            <!-- Fake CTA/Login -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium hidden sm:block">Log In</a>
+                <a href="#" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-700 transition-all">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto py-16 md:py-24 px-6">
+        
+        <!-- Hero Section (Problem) -->
+        <section class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+                How many hours a week are you losing to the "Invisible Admin Tax?"
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Stop guessing, start automating. Use our 30-second calculator to see the time and money you can get back with Zapier for Execs.
+            </p>
+        </section>
+
+        <!-- The Calculator (Plan-A) -->
+        <section class="bg-white rounded-xl shadow-2xl p-8 md:p-12 border border-gray-100">
+            <form id="calculator-form">
+                <div class="space-y-8">
+                    
+                    <!-- Slider 1 -->
+                    <div>
+                        <label for="slider-reports" class="block text-lg font-semibold text-gray-800 mb-3">
+                            Hours spent <span class="text-[#ff4a00]">manually pulling reports</span> each week:
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="slider-reports" min="0" max="20" value="5" class="flex-1">
+                            <span id="value-reports" class="text-xl font-bold text-gray-900 w-12 text-right">5 hrs</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Slider 2 -->
+                    <div>
+                        <label for="slider-meetings" class="block text-lg font-semibold text-gray-800 mb-3">
+                            Hours spent <span class="text-[#ff4a00]">prepping for meetings</span> (docs, summaries):
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="slider-meetings" min="0" max="20" value="5" class="flex-1">
+                            <span id="value-meetings" class="text-xl font-bold text-gray-900 w-12 text-right">5 hrs</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 3 -->
+                    <div>
+                        <label for="slider-approvals" class="block text-lg font-semibold text-gray-800 mb-3">
+                            Hours spent <span class="text-[#ff4a00]">chasing approvals</span> or sending reminders:
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="slider-approvals" min="0" max="20" value="5" class="flex-1">
+                            <span id="value-approvals" class="text-xl font-bold text-gray-900 w-12 text-right">5 hrs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculate Button -->
+                <div class="mt-10">
+                    <button id="calculate-btn" class="w-full text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 bg-[#ff4a00] hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[#ff4a00] focus:ring-opacity-50">
+                        Calculate My Admin Tax
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- The Result (Success) -->
+        <section id="result-section" class="hidden mt-12 text-center bg-gray-50 p-10 rounded-xl shadow-lg border border-gray-200">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                You're losing an estimated <span id="hours-lost" class="text-[#ff4a00]">15 hours</span> per week.
+            </h2>
+            <p class="text-xl text-gray-600 mb-6">
+                That's a potential loss of <span id="money-lost" class="font-bold text-gray-800">$1,500</span> every week to the "Invisible Admin Tax."
+            </p>
+            <p class="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
+                That's time you could be spending on strategy, team-building, and the work that *really* matters.
+            </p>
+            
+            <!-- Final CTA -->
+            <a href="#early-access-form" class="inline-block text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-900 focus:ring-opacity-50">
+                Get Those Hours Back. Request Early Access.
+            </a>
+            
+            <p class="text-sm text-gray-500 mt-4">*Cost estimated at a blended rate of $100/hr for executive & EA time.</p>
+        </section>
+        
+    </main>
+
+    <!-- NEW SECTION: The Guide & The Plan (Features) -->
+    <section class="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Stop prepping. Start leading.</h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                Zapier for Execs is your new command center, automating the "Admin Tax" so you can focus on what matters.
+            </p>
+            <!-- Feature Grid -->
+            <div class="grid md:grid-cols-2 gap-6 text-left">
+                <!-- Feature 1: Morning Digest -->
+                <div class="feature-card">
+                    <i class="ph-coffee-fill text-4xl text-[#ff4a00] mb-3"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Morning Digest</h3>
+                    <p class="text-gray-600">Wake up to an AI-written summary of key metrics, meetings, and fires-to-fight, delivered right to Slack or your inbox.</p>
+                </div>
+                <!-- Feature 2: Instant Decisions -->
+                <div class="feature-card">
+                    <i class="ph-check-circle-fill text-4xl text-[#ff4a00] mb-3"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Instant Decisions</h3>
+                    <p class="text-gray-600">Approve budgets, headcount, or campaigns with one click from Slack or email. No more chasing approvals.</p>
+                </div>
+                <!-- Feature 3: EA Command Center -->
+                <div class="feature-card">
+                    <i class="ph-rocket-launch-fill text-4xl text-[#ff4a00] mb-3"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">EA Command Center</h3>
+                    <p class="text-gray-600">"Zap Packs" for EAs to automate meeting prep, task routing, and document summaries. Be a strategic partner, not a task-rabbit.</p>
+                </div>
+                <!-- Feature 4: KPI Dashboards -->
+                <div class="feature-card">
+                    <i class="ph-chart-bar-fill text-4xl text-[#ff4a00] mb-3"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">KPI Dashboards</h3>
+                    <p class="text-gray-600">Auto-generate slides or Notion pages for board meetings using live data from all your systems. Seriously.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: The Stakes (Failure) -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i class="ph-warning-octagon-fill text-5xl text-gray-400 mb-4"></i>
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Don't let the "Admin Tax" win.</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Every hour spent on manual work is an hour *not* spent on growing the business. The cost of inaction is:
+            </p>
+            <ul class="mt-8 space-y-2 text-lg text-gray-600 inline-block text-left">
+                <li class="flex items-center">
+                    <i class="ph-x-circle-fill text-red-500 mr-2 text-xl"></i> Slower decision velocity
+                </li>
+                <li class="flex items-center">
+                    <i class="ph-x-circle-fill text-red-500 mr-2 text-xl"></i> Burned-out, frustrated teams
+                </li>
+                <li class="flex items-center">
+                    <i class="ph-x-circle-fill text-red-500 mr-2 text-xl"></i> Strategic goals missed for "busywork"
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: The Success (Testimonials) -->
+    <section class="py-16 md:py-24 bg-gray-900 text-white">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold mb-12 tracking-tight">See how leaders are getting their time back.</h2>
+            
+            <div class="space-y-10">
+                <!-- Testimonial 1 -->
+                <blockquote class="text-2xl font-medium leading-normal">
+                    <p>"Zapier for Execs gave me back 10 hours a week. My Monday mornings went from dread to 'What strategic problem can I solve today?' It's a game-changer."</p>
+                    <footer class="mt-6">
+                        <img class="w-12 h-12 rounded-full mx-auto mb-2" src="https://placehold.co/100x100/FFF/333?text=CS" alt="Fictional CEO">
+                        <div class="text-lg font-bold">"Fictional" CEO</div>
+                        <div class="text-base text-gray-400">Tech Solutions Inc.</div>
+                    </footer>
+                </blockquote>
+                
+                <!-- Testimonial 2 -->
+                <blockquote class="text-2xl font-medium leading-normal">
+                    <p>"The EA Command Center is a lifesaver. I'm no longer buried in meeting prep; I'm a true strategic partner to my executive. I can't imagine my job without it."</p>
+                    <footer class="mt-6">
+                        <img class="w-12 h-12 rounded-full mx-auto mb-2" src="https://placehold.co/100x100/FFF/333?text=JA" alt="Fictional EA">
+                        <div class="text-lg font-bold">"Fictional" Exec Assistant</div>
+                        <div class="text-base text-gray-400">Global Ventures</div>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Final CTA (Request Early Access) -->
+    <section id="early-access-form" class="py-16 md:py-24 bg-white">
+        <div class="max-w-xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Get Your Hours Back.</h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Request early access to Zapier for Execs and be the first to eliminate the "Admin Tax" for good.
+            </p>
+            <form class="space-y-4">
+                <div>
+                    <label for="name" class="sr-only">Full Name</label>
+                    <input type="text" id="name" placeholder="Full Name" class="w-full p-3 rounded-lg border-gray-300 border text-lg focus:outline-none focus:ring-2 focus:ring-[#ff4a00]">
+                </div>
+                <div>
+                    <label for="email" class="sr-only">Company Email</label>
+                    <input type="email" id="email" placeholder="Company Email" class="w-full p-3 rounded-lg border-gray-300 border text-lg focus:outline-none focus:ring-2 focus:ring-[#ff4a00]">
+                </div>
+                <div>
+                    <label for="company-size" class="sr-only">Company Size</label>
+                    <select id="company-size" class="w-full p-3 rounded-lg border-gray-300 border text-lg text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#ff4a00]">
+                        <option value="">Company Size (250+)</option>
+                        <option value="250-500">250-500 employees</option>
+                        <option value="500-1000">500-1,000 employees</option>
+                        <option value="1000+">1,000+ employees</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 bg-[#ff4a00] hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[#ff4a00] focus:ring-opacity-50">
+                    Request Early Access
+                </button>
+            </form>
+        </div>
+    </section>
+
+    
+    <!-- Footer (Realistic) -->
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-8">
+            <!-- Logo -->
+            <div>
+                <svg class="h-8 w-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="#FF4A00" viewBox="0 0 100 40"><path d="M100 17.4H59.7V0H40.3v17.4H0v5.2h40.3v17.4h19.4V22.6H100z"></path></svg>
+                <p class="text-sm">© 2025 Zapier Inc.</p>
+            </div>
+            <!-- Fake Links Column 1 -->
+            <div>
+                <h4 class="font-bold text-white mb-3">Product</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">Pricing</a></li>
+                    <li><a href="#" class="hover:text-white">Help</a></li>
+                    <li><a href="#" class="hover:text-white">App Directory</a></li>
+                    <li><a href="#" class="hover:text-white">Security</a></li>
+                </ul>
+            </div>
+            <!-- Fake Links Column 2 -->
+            <div>
+                <h4 class="font-bold text-white mb-3">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">About Us</a></li>
+                    <li><a href="#" class="hover:text-white">Careers</a></li>
+                    <li><a href="#" class="hover:text-white">Blog</a></li>
+                    <li><a href="#" class="hover:text-white">Press</a></li>
+                </ul>
+            </div>
+            <!-- Fake Links Column 3 -->
+            <div>
+                <h4 class="font-bold text-white mb-3">Resources</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">Experts</a></li>
+                    <li><a href="#" class="hover:text-white">Community</a></li>
+                    <li><a href="#" class="hover:text-white">Webinars</a></li>
+                    <li><a href="#" class="hover:text-white">Templates</a></li>
+                </ul>
+            </div>
+            <!-- Fake Links Column 4 -->
+            <div>
+                <h4 class="font-bold text-white mb-3">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">Privacy</a></li>
+                    <li><a href="#" class="hover:text-white">Terms</a></li>
+                    <li><a href="#" class="hover:text-white">CCPA</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript to make it work -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Get all the elements
+            const sliderReports = document.getElementById('slider-reports');
+            const valueReports = document.getElementById('value-reports');
+            
+            const sliderMeetings = document.getElementById('slider-meetings');
+            const valueMeetings = document.getElementById('value-meetings');
+            
+            const sliderApprovals = document.getElementById('slider-approvals');
+            const valueApprovals = document.getElementById('value-approvals');
+            
+            const calcButton = document.getElementById('calculate-btn');
+            const resultSection = document.getElementById('result-section');
+            
+            const hoursLostEl = document.getElementById('hours-lost');
+            const moneyLostEl = document.getElementById('money-lost');
+            
+            const blendedRate = 100; // $100/hr blended rate
+
+            // Function to update slider value text
+            function updateValue(slider, span, suffix) {
+                span.textContent = slider.value + suffix;
+            }
+
+            // Add event listeners to sliders
+            sliderReports.addEventListener('input', () => updateValue(sliderReports, valueReports, ' hrs'));
+            sliderMeetings.addEventListener('input', () => updateValue(sliderMeetings, valueMeetings, ' hrs'));
+            sliderApprovals.addEventListener('input', () => updateValue(sliderApprovals, valueApprovals, ' hrs'));
+
+            // Add event listener to button
+            calcButton.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop form from submitting
+
+                // Get values
+                const hoursReports = parseInt(sliderReports.value);
+                const hoursMeetings = parseInt(sliderMeetings.value);
+                const hoursApprovals = parseInt(sliderApprovals.value);
+                
+                const totalHours = hoursReports + hoursMeetings + hoursApprovals;
+                const totalMoney = totalHours * blendedRate;
+
+                // Update the result text
+                hoursLostEl.textContent = `${totalHours} hours`;
+                moneyLostEl.textContent = `$${totalMoney.toLocaleString('en-US')}`;
+
+                // Show the result section
+                resultSection.classList.remove('hidden');
+                
+                // Scroll to the result
+                resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            // Smooth scroll for the CTA link
+            document.querySelector('a[href="#early-access-form"]').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('#early-access-form').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
