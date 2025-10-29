@@ -10,14 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- 3. Load Phosphor Icons (for feature icons) -->
+    <!-- 3. Load Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        /* 4. Set Inter as the default font */
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* 5. Custom Zapier Orange for inputs */
+        /* Custom Zapier Orange for inputs */
         input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
@@ -49,7 +48,6 @@
             border: 4px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        /* 6. Custom styling for the feature grid */
         .feature-card {
             background-color: #f9fafb; /* gray-50 */
             border: 1px solid #e5e7eb; /* gray-200 */
@@ -58,20 +56,156 @@
             display: flex;
             flex-direction: column;
         }
-        /* 7. Ensure mockups don't shrink */
         .lo-fi-mockup {
             margin-top: auto; /* Pushes mockups to the bottom */
+        }
+        /* Styles for the hidden portfolio overlay */
+        #portfolio-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #portfolio-overlay.is-visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #portfolio-content {
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        #portfolio-overlay.is-visible #portfolio-content {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body class="bg-white antialiased text-gray-800">
 
-    <!-- Header (Realistic Zapier Nav) -->
+    <!-- 
+    ====================================================================
+    SECRET PORTFOLIO OVERLAY
+    This is hidden by default and shown on logo double-click
+    ====================================================================
+    -->
+    <div id="portfolio-overlay" class="p-6 flex items-center justify-center">
+        
+        <!-- Main Content Box -->
+        <div id="portfolio-content" class="relative w-full max-w-4xl bg-gray-50 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            
+            <!-- Header (with close button) -->
+            <header class="py-4 px-6 border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+                <div class="flex justify-between items-center">
+                    <!-- Logo -->
+                    <span class="text-2xl font-extrabold text-[#FF4A00] tracking-tight">Move Ben to next round?</span>
+                    <!-- Close Button -->
+                    <button id="close-overlay-btn" title="Close" class="text-gray-400 hover:text-gray-800 transition-colors">
+                        <i class="ph-fill ph-x-circle text-4xl"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content Area -->
+            <div class="overflow-y-auto p-6 md:p-12">
+                <!-- Hero Section -->
+                <section class="text-center mb-12">
+                    <i class="ph-fill ph-trophy text-6xl text-[#FF4A00] mb-6"></i>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+                        You found the secret level!
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                        Thanks for taking a closer look. As promised, here are the links to my full (and beautifully designed) Canva presentations.
+                    </p>
+                </section>
+
+                <!-- The Links -->
+                <section class="space-y-6">
+                
+                    <!-- Link 1: Part 1 -->
+                    <a href="https://www.canva.com/design/DAG3NUt_zek/wt1pdT-HOrX5yEtWNN4ifA/view?utm_content=DAG3NUt_zek&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfa25e4674f" target="_blank" class="block p-8 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-[#FF4A00] hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
+                            <div class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-4 md:mb-0">
+                                <i class="ph-fill ph-presentation-chart text-4xl text-[#FF4A00]"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900 mb-1">Part 1: The 48-Hour Social Plan</h2>
+                                <p class="text-gray-600 text-lg">The full StoryBrand strategy, 11-post launch sprint, and long-term campaign plan.</p>
+                                <span class="text-[#FF4A00] font-bold mt-2 inline-block">View in Canva &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Link 2: Part 2 -->
+                    <a href="https://www.canva.com/design/DAG3NetpMAw/eOUjrVZC0B7K067iGsXrPQ/view?utm_content=DAG3NetpMAw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h0cf2f9cb35" target="_blank" class="block p-8 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-[#FF4A00] hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
+                            <div class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-4 md:mb-0">
+                                <i class="ph-fill ph-robot text-4xl text-[#FF4A00]"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900 mb-1">Part 2: The Automation & Systems Plan</h2>
+                                <p class="text-gray-600 text-lg">My "Reactive" Zaps for launch day and the "Proactive" systems to fix the process for good.</p>
+                                <span class="text-[#FF4A00] font-bold mt-2 inline-block">View in Canva &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Link 3: Part 3 -->
+                    <a href="https://www.canva.com/design/DAG3NdImfdc/RPuC0HSvE0R5RUxcVbKovA/view?utm_content=DAG3NdImfdc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h45d01c127e" target="_blank" class="block p-8 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-[#FF4A00] hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
+                            <div class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-4 md:mb-0">
+                                <i class="ph-fill ph-magic-wand text-4xl text-[#FF4A00]"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900 mb-1">Part 3: The Brand Voice Copy Edit</h2>
+                                <p class="text-gray-600 text-lg">The "Before & After" glow-up, turning "turkey" into on-brand, benefit-driven copy.</p>
+                                <span class="text-[#FF4A00] font-bold mt-2 inline-block">View in Canva &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Link 4: Portfolio -->
+                    <a href="https://bencampbellcreative.netlify.app" target="_blank" class="block p-8 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-[#FF4A00] hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
+                            <div class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-4 md:mb-0">
+                                <i class="ph-fill ph-briefcase text-4xl text-[#FF4A00]"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900 mb-1">My Full Portfolio</h2>
+                                <p class="text-gray-600 text-lg">See more of my work, case studies, and professional experience.</p>
+                                <span class="text-[#FF4A00] font-bold mt-2 inline-block">View Portfolio &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </section>
+                
+                <!-- Footer (Simplified) -->
+                <footer class="text-center py-10 mt-12 border-t border-gray-200">
+                    <p class="text-gray-500">Built with &hearts; by Ben. (Click the "X" to close!)</p>
+                </footer>
+            </div>
+            
+        </div>
+    </div>
+    <!-- END OF SECRET PORTFOLIO OVERLAY -->
+
+
+    <!-- 
+    ====================================================================
+    MAIN LANDING PAGE CONTENT
+    ====================================================================
+    -->
     <header class="py-4 px-6 border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#" title="Zapier Home">
-                <svg class="h-8 w-auto" xmlns="http://www.w3.org/2000/svg" fill="#FF4A00" viewBox="0 0 100 40"><path d="M100 17.4H59.7V0H40.3v17.4H0v5.2h40.3v17.4h19.4V22.6H100z"></path></svg>
+            <!-- Logo (The "Easter Egg" Version) -->
+            <a href="#" title="Double-click me! ;)" class="h-8 flex items-center cursor-pointer" id="logo-link">
+                <span class="text-2xl font-extrabold text-[#FF4A00] tracking-tight">Move Ben to next round?</span>
             </a>
             <!-- Fake Nav Links -->
             <nav class="hidden md:flex items-center space-x-6">
@@ -173,7 +307,7 @@
         
     </main>
 
-    <!-- UPDATED SECTION: The Guide & The Plan (Features) -->
+    <!-- The Guide & The Plan (Features) -->
     <section class="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Stop prepping. Start leading.</h2>
@@ -213,7 +347,7 @@
                             <span class="font-bold text-sm">Zapier Bot</span>
                         </div>
                         <div class="text-sm">
-                            <p class="text-gray-700 mb-3">Finance has requested approval for the Q4 Marketing Budget ($25,000).</p>
+                            <p class="text-gray-700 mb-3">Finance has requested approval for the Q4 Marketing Budget ($25,0l0).</p>
                             <div class="flex space-x-2">
                                 <button class="text-xs bg-green-500 text-white font-bold py-1 px-3 rounded-md hover:bg-green-600">Approve</button>
                                 <button class="text-xs bg-red-500 text-white font-bold py-1 px-3 rounded-md hover:bg-red-600">Deny</button>
@@ -253,7 +387,7 @@
                         <p class="font-bold text-sm mb-2">Live Board Deck: Q4 KPIs</p>
                         <div class="flex items-end space-x-2 h-24 p-2 border border-gray-200 rounded-md bg-white">
                             <div class="bg-green-500 w-1/4 h-1/2 rounded-t-sm" title="Q1"></div>
-                            <div class="bg-green-500 w-1/4 h-2/3 rounded-t-sm" title="Q2"></div>
+                            <div class="bg-green-500 w-1/static h-2/3 rounded-t-sm" title="Q2"></div>
                             <div class="bg-green-500 w-1/4 h-1/3 rounded-t-sm" title="Q3"></div>
                             <div class="bg-green-600 w-1/4 h-full rounded-t-sm" title="Q4"></div>
                         </div>
@@ -264,7 +398,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: The Stakes (Failure) -->
+    <!-- The Stakes (Failure) -->
     <section class="py-16 md:py-24 bg-white">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <i class="ph-fill ph-warning-octagon text-5xl text-gray-400 mb-4"></i>
@@ -286,7 +420,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: The Success (Testimonials) -->
+    <!-- The Success (Testimonials) -->
     <section class="py-16 md:py-24 bg-gray-900 text-white">
         <div class="max-w-3xl mx-auto px-6 text-center">
             <h2 class="text-4xl font-extrabold mb-12 tracking-tight">See how leaders are getting their time back.</h2>
@@ -315,7 +449,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: Final CTA (Request Early Access) -->
+    <!-- Final CTA (Request Early Access) -->
     <section id="early-access-form" class="py-16 md:py-24 bg-white">
         <div class="max-w-xl mx-auto px-6 text-center">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Get Your Hours Back.</h2>
@@ -402,7 +536,12 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Get all the elements
+            // --- Get Overlay Elements ---
+            const portfolioOverlay = document.getElementById('portfolio-overlay');
+            const closeOverlayBtn = document.getElementById('close-overlay-btn');
+            
+            // --- Get Calculator Elements ---
+            const logoLink = document.getElementById('logo-link');
             const sliderReports = document.getElementById('slider-reports');
             const valueReports = document.getElementById('value-reports');
             
@@ -420,17 +559,43 @@
             
             const blendedRate = 100; // $100/hr blended rate
 
-            // Function to update slider value text
+            // --- Function to update slider value text ---
             function updateValue(slider, span, suffix) {
                 span.textContent = slider.value + suffix;
             }
 
-            // Add event listeners to sliders
+            // --- Add event listeners to sliders ---
             sliderReports.addEventListener('input', () => updateValue(sliderReports, valueReports, ' hrs'));
             sliderMeetings.addEventListener('input', () => updateValue(sliderMeetings, valueMeetings, ' hrs'));
             sliderApprovals.addEventListener('input', () => updateValue(sliderApprovals, valueApprovals, ' hrs'));
 
-            // Add event listener to button
+            // --- Function to show the overlay ---
+            function showOverlay(e) {
+                e.preventDefault(); // Stop default link behavior
+                portfolioOverlay.classList.add('is-visible');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            // --- Function to hide the overlay ---
+            function hideOverlay() {
+                portfolioOverlay.classList.remove('is-visible');
+                document.body.style.overflow = ''; // Re-enable background scrolling
+            }
+
+            // *** Add double-click event listener to the logo ***
+            logoLink.addEventListener('dblclick', showOverlay);
+
+            // *** Add click listeners to close the overlay ***
+            closeOverlayBtn.addEventListener('click', hideOverlay);
+            
+            // Also close if clicking the dark background
+            portfolioOverlay.addEventListener('click', (e) => {
+                if (e.target === portfolioOverlay) {
+                    hideOverlay();
+                }
+            });
+
+            // --- Add event listener to calculator button ---
             calcButton.addEventListener('click', (e) => {
                 e.preventDefault(); // Stop form from submitting
 
@@ -453,7 +618,7 @@
                 resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
 
-            // Smooth scroll for the CTA link
+            // --- Smooth scroll for the CTA link ---
             document.querySelector('a[href="#early-access-form"]').addEventListener('click', function(e) {
                 e.preventDefault();
                 document.querySelector('#early-access-form').scrollIntoView({
